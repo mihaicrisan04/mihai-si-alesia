@@ -206,7 +206,8 @@ export function PolaroidImage({
         {
           "--rotation": `${rotation}deg`,
           opacity: isOpen ? 0 : 1,
-          ...(canDrag ? { pointerEvents: "auto" as const, cursor: isDragActive ? "grabbing" : "grab" } : {}),
+          pointerEvents: "auto" as const,
+          ...(canDrag ? { cursor: isDragActive ? "grabbing" : "grab" } : {}),
         } as React.CSSProperties
       }
     >

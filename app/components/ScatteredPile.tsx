@@ -183,6 +183,7 @@ export function ScatteredPile({ photos, theme }: ScatteredPileProps) {
                   left: `${l.left}%`,
                   zIndex: dragZIndices[i] ?? l.z,
                   animationDelay: `${i * params.stagger}ms`,
+                  pointerEvents: "none",
                 }}
               >
                 <PolaroidImage
