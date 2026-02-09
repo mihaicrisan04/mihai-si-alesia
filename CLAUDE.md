@@ -15,7 +15,7 @@ Package manager is **Bun** (not npm/yarn).
 
 ## Architecture
 
-This is a **Next.js 16 photo gallery** (App Router, React 19, TypeScript) presenting couple photos in 7 distinct design layouts. Each route `/1` through `/7` is a self-contained gallery page with its own aesthetic. The home page (`/`) is a design selector linking to each.
+This is a **Next.js 16 photo gallery** (App Router, React 19, TypeScript) presenting couple photos in 2 design layouts. Static export (`output: "export"`) deployed to Vercel.
 
 ### Tech Stack
 
@@ -29,7 +29,7 @@ This is a **Next.js 16 photo gallery** (App Router, React 19, TypeScript) presen
 
 - **`app/components/motion.tsx`** — Reusable scroll-triggered animation primitives (FadeInUp, FadeIn, SlideIn, ScaleIn, DrawLine, TextReveal, ScrollProgress, StaggerContainer/StaggerItem). Used across most gallery pages.
 - **`app/components/PolaroidImage.tsx`** — Interactive polaroid card with click-to-zoom modal using FLIP animation, portal rendering, escape/click-outside dismissal. Supports light/dark themes.
-- **`app/components/ScatteredPile.tsx`** — Scattered photo layout using R2 quasirandom sequence for even distribution and splitmix32 PRNG for rotation/scatter. Powers designs 4 and 5.
+- **`app/components/ScatteredPile.tsx`** — Scattered photo layout using R2 quasirandom sequence for even distribution and splitmix32 PRNG for rotation/scatter. Powers the `/` page.
 - **`app/components/PileControls.tsx`** — Interactive slider panel for tuning ScatteredPile parameters (canvas size, tightness, scatter, rotation, photo size).
 
 ### Utilities
@@ -41,13 +41,8 @@ This is a **Next.js 16 photo gallery** (App Router, React 19, TypeScript) presen
 
 | Route | Name | Key Pattern |
 |-------|------|-------------|
-| `/1` | Intimate Journal | 3-col grid, stagger animations, pull quotes |
-| `/2` | Editorial Magazine | Complex responsive grid with 3 layout types |
-| `/3` | Analog Memory | Polaroid frames with film grain overlay |
-| `/4` | Scattered Prints | ScatteredPile (light theme) with interactive controls |
-| `/5` | Dark Table | ScatteredPile (dark theme) |
-| `/6` | Exhibition | Gallery/museum dark aesthetic, featured + grid sections |
-| `/7` | Chapbook | Photo book with cover, spreads, index, colophon |
+| `/` | Scattered Prints | ScatteredPile (light theme) with interactive controls |
+| `/alt` | Analog Memory | Polaroid grid with film grain overlay |
 
 ### Path Alias
 
@@ -55,4 +50,4 @@ This is a **Next.js 16 photo gallery** (App Router, React 19, TypeScript) presen
 
 ### Image Handling
 
-Next.js Image component with AVIF/WebP format negotiation. All photos live in `/public` as static files (JPG/JPEG/PNG). Device sizes configured in next.config.ts: 640, 750, 828, 1080, 1200.
+Next.js Image component with `images: { unoptimized: true }` (required for static export). All photos live in `/public` as pre-optimized WebP files.
