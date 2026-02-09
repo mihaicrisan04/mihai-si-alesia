@@ -16,13 +16,13 @@ export interface PileParams {
 
 export const defaultPileParams: PileParams = {
   canvasWidth: 80,
-  tightness: 0,
-  scatter: 15,
+  tightness: 4,
+  scatter: 2,
   rotation: 35,
-  photoSize: 15,
-  canvasHeight: 8,
+  photoSize: 14,
+  canvasHeight: 9,
   offsetX: 0,
-  offsetY: 0,
+  offsetY: -1,
   stagger: 30,
 };
 

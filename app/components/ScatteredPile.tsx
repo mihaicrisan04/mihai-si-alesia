@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { PileControls, defaultPileParams, type PileParams } from "@/app/components/PileControls";
 import { PolaroidImage } from "@/app/components/PolaroidImage";
 import { Heart } from "lucide-react";
@@ -77,6 +77,23 @@ export function ScatteredPile({ photos, theme }: ScatteredPileProps) {
   const [params, setParams] = useState<PileParams>({ ...defaultPileParams });
   const [seed, setSeed] = useState(0);
   const [dragZIndices, setDragZIndices] = useState<Record<number, number>>({});
+  const [showControls, setShowControls] = useState(false);
+  const keyBuffer = useRef<{ key: string; time: number }[]>([]);
+
+  // Secret key sequence: type "mia" within 1s to toggle controls
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const now = Date.now();
+      keyBuffer.current = [...keyBuffer.current.filter((k) => now - k.time < 1000), { key: e.key.toLowerCase(), time: now }];
+      const seq = keyBuffer.current.map((k) => k.key).join("");
+      if (seq.endsWith("mia")) {
+        setShowControls((v) => !v);
+        keyBuffer.current = [];
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
   const t = themes[theme];
   const themeOffset = theme === "dark" ? 97 : 0;
 
@@ -143,8 +160,8 @@ export function ScatteredPile({ photos, theme }: ScatteredPileProps) {
         }}
       />
 
-      {/* Pile controls */}
-      <PileControls values={params} onChange={setParams} variant={theme} onReshuffle={handleReshuffle} onSaveConfig={handleSaveConfig} />
+      {/* Pile controls — toggle with "mia" key sequence */}
+      {showControls && <PileControls values={params} onChange={setParams} variant={theme} onReshuffle={handleReshuffle} onSaveConfig={handleSaveConfig} />}
 
       {/* Header */}
       <header className="min-h-[85vh] flex items-center justify-center relative z-30 animate-fade-in px-6">
