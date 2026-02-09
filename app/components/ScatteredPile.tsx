@@ -127,7 +127,7 @@ export function ScatteredPile({ photos, theme }: ScatteredPileProps) {
 
   return (
     <div
-      className="min-h-screen overflow-x-hidden font-[family-name:var(--font-geist-pixel-circle)]"
+      className="min-h-screen font-[family-name:var(--font-geist-pixel-circle)]"
       style={{ backgroundColor: t.bg }}
     >
       {/* Film grain overlay */}
