@@ -3,6 +3,7 @@
 import { useState, useMemo, useCallback } from "react";
 import { PileControls, defaultPileParams, type PileParams } from "@/app/components/PileControls";
 import { PolaroidImage } from "@/app/components/PolaroidImage";
+import { Heart } from "lucide-react";
 import type { Photo } from "@/app/lib/photos";
 
 const themes = {
@@ -148,7 +149,7 @@ export function ScatteredPile({ photos, theme }: ScatteredPileProps) {
       {/* Header */}
       <header className="min-h-[85vh] flex items-center justify-center relative z-30 animate-fade-in px-6">
         <h1
-          className="text-3xl md:text-5xl lg:text-6xl text-center lowercase leading-tight"
+          className="text-4xl md:text-6xl lg:text-7xl text-center lowercase leading-tight"
           style={{ color: t.muted }}
         >
           once it hits the internet,
@@ -205,8 +206,8 @@ export function ScatteredPile({ photos, theme }: ScatteredPileProps) {
 
       {/* Footer */}
       <footer className="pt-16 pb-24 text-center relative z-30">
-        <p className="text-2xl" style={{ color: t.muted }}>
-          I <span style={{ color: t.heart }}>&hearts;</span> u
+        <p className="text-3xl md:text-4xl" style={{ color: t.muted }}>
+          i <Heart className="inline-block mx-1" style={{ color: t.heart, verticalAlign: '-0.1em' }} size={32} /> u
         </p>
       </footer>
     </div>
