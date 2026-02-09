@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { Cormorant_Garamond, DM_Sans, Playfair_Display, Space_Grotesk, Libre_Baskerville } from "next/font/google";
 import { GeistPixelCircle } from "geist/font/pixel";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -52,7 +53,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${cormorant.variable} ${dmSans.variable} ${playfair.variable} ${spaceGrotesk.variable} ${libre.variable} ${GeistPixelCircle.variable} antialiased`}
+        className={`${geistSans.variable} ${cormorant.variable} ${dmSans.variable} ${playfair.variable} ${spaceGrotesk.variable} ${libre.variable} ${GeistPixelCircle.variable} ${GeistMono.variable} antialiased`}
       >
         {children}
       </body>

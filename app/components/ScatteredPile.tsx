@@ -80,6 +80,29 @@ export function ScatteredPile({ photos, theme }: ScatteredPileProps) {
   const [showControls, setShowControls] = useState(false);
   const keyBuffer = useRef<{ key: string; time: number }[]>([]);
 
+  // ASCII art console easter egg
+  useEffect(() => {
+    console.log(
+      `\n%c
+    ██╗      ██████╗  ██╗   ██╗ ███████╗
+    ██║     ██╔═══██╗ ██║   ██║ ██╔════╝
+    ██║     ██║   ██║ ██║   ██║ █████╗
+    ██║     ██║   ██║ ╚██╗ ██╔╝ ██╔══╝
+    ███████╗╚██████╔╝  ╚████╔╝  ███████╗
+    ╚══════╝ ╚═════╝    ╚═══╝   ╚══════╝
+
+         ♥  mihai & alesia  ♥
+
+    you found it. this is the secret.
+    a little message hidden where
+    only the curious would look.
+
+    — built with love, 2025
+`,
+      "color: #8b5e5e; font-size: 12px; font-family: monospace; line-height: 1.4;"
+    );
+  }, []);
+
   // Secret key sequence: type "mia" within 1s to toggle controls
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -225,7 +248,12 @@ export function ScatteredPile({ photos, theme }: ScatteredPileProps) {
       {/* Footer */}
       <footer className="pt-16 pb-24 text-center relative z-30">
         <p className="text-3xl md:text-4xl" style={{ color: t.muted }}>
-          i <Heart className="inline-block mx-1" style={{ color: t.heart, verticalAlign: '-0.1em' }} size={32} /> u
+          i{" "}
+            <span className="inline-block mx-1 relative group" style={{ verticalAlign: '-0.1em', width: 32, height: 32 }}>
+              <Heart className="absolute inset-0 transition-opacity duration-150 group-hover:opacity-0" style={{ color: t.heart }} size={32} />
+              <Heart className="absolute inset-0 transition-opacity duration-150 opacity-0 group-hover:opacity-100" style={{ color: t.heart, fill: t.heart }} size={32} />
+            </span>
+            {" "}u
         </p>
       </footer>
     </div>
