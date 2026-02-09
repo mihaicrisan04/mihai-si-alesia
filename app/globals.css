@@ -1,26 +1,310 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-cormorant: var(--font-cormorant);
+  --font-dm-sans: var(--font-dm-sans);
+  --font-playfair: var(--font-playfair);
+  --font-space-grotesk: var(--font-space-grotesk);
+  --font-libre: var(--font-libre);
+  --font-geist-pixel-circle: var(--font-geist-pixel-circle);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --background: #f5f1eb;
+  --foreground: #171717;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) #f5f1eb;
+}
+
+/* Custom scrollbar styling (WebKit: Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f1eb;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+/* Shared gallery image styles */
+.gallery-img {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Smooth scroll for all pages */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Stagger animation utility */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes drawLine {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-slide-left {
+  animation: slideInLeft 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-slide-right {
+  animation: slideInRight 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-draw-line {
+  animation: drawLine 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Polaroid frame ────────────────────────────────── */
+.polaroid-frame {
+  position: relative;
+  background: linear-gradient(165deg, #fefefe 0%, #faf8f5 50%, #f5f2ed 100%);
+  padding: 6px 6px 30px;
+  border-radius: 2px;
+  /* Individual transform props so they animate independently */
+  rotate: var(--rotation, 0deg);
+  scale: 1;
+  translate: 0 0;
+  transition:
+    scale 2s cubic-bezier(0.08, 0.82, 0.17, 1),
+    translate 2s cubic-bezier(0.08, 0.82, 0.17, 1),
+    box-shadow 2s cubic-bezier(0.08, 0.82, 0.17, 1),
+    opacity 0.15s ease;
+  box-shadow:
+    inset 0 0 30px rgba(255, 255, 245, 0.4),
+    inset 0 0 1px rgba(0, 0, 0, 0.04),
+    0 1px 1px rgba(0, 0, 0, 0.05),
+    0 2px 2px rgba(0, 0, 0, 0.05),
+    0 4px 4px rgba(0, 0, 0, 0.04),
+    0 8px 8px rgba(0, 0, 0, 0.03),
+    0 16px 16px rgba(0, 0, 0, 0.02);
+}
+
+@media (min-width: 768px) {
+  .polaroid-frame {
+    padding: 8px 8px 36px;
+  }
+}
+
+.polaroid-frame:hover {
+  scale: 1.03;
+  translate: 0 -6px;
+  box-shadow:
+    inset 0 0 30px rgba(255, 255, 245, 0.4),
+    inset 0 0 1px rgba(0, 0, 0, 0.04),
+    0 2px 2px rgba(0, 0, 0, 0.07),
+    0 4px 4px rgba(0, 0, 0, 0.06),
+    0 8px 8px rgba(0, 0, 0, 0.05),
+    0 16px 16px rgba(0, 0, 0, 0.04),
+    0 24px 32px rgba(0, 0, 0, 0.04),
+    0 32px 48px rgba(0, 0, 0, 0.03);
+}
+
+.polaroid-image-area {
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.08);
+}
+
+/* Frozen thumbnail (kill CSS transitions while modal is open) */
+.polaroid-frame--frozen {
+  transition: none !important;
+  scale: 1 !important;
+  translate: 0 0 !important;
+}
+
+/* Suppress hover transforms during drag */
+.polaroid-frame--dragging,
+.polaroid-frame--dragging:hover {
+  transition: none !important;
+  scale: 1 !important;
+  translate: 0 0 !important;
+}
+
+/* Zoomed polaroid */
+.polaroid-frame--zoomed {
+  background: linear-gradient(165deg, #fefefe 0%, #faf8f5 50%, #f5f2ed 100%);
+  padding: 12px 12px 48px;
+  border-radius: 2px;
+  cursor: default;
+  box-shadow:
+    inset 0 0 60px rgba(255, 255, 245, 0.3),
+    inset 0 0 2px rgba(0, 0, 0, 0.04),
+    0 2px 4px rgba(0, 0, 0, 0.08),
+    0 4px 8px rgba(0, 0, 0, 0.08),
+    0 8px 16px rgba(0, 0, 0, 0.06),
+    0 16px 32px rgba(0, 0, 0, 0.05),
+    0 32px 64px rgba(0, 0, 0, 0.04);
+}
+
+@media (min-width: 768px) {
+  .polaroid-frame--zoomed {
+    padding: 14px 14px 52px;
+  }
+}
+
+/* Dark variant (aged print on dark surface) */
+.polaroid-frame.polaroid-dark {
+  background: linear-gradient(165deg, #f5f0e8 0%, #efe9e0 50%, #e8e2d8 100%);
+  box-shadow:
+    inset 0 0 30px rgba(255, 255, 240, 0.3),
+    inset 0 0 1px rgba(0, 0, 0, 0.06),
+    0 2px 4px rgba(0, 0, 0, 0.15),
+    0 4px 8px rgba(0, 0, 0, 0.15),
+    0 8px 16px rgba(0, 0, 0, 0.12),
+    0 16px 32px rgba(0, 0, 0, 0.1);
+}
+
+.polaroid-frame.polaroid-dark:hover {
+  box-shadow:
+    inset 0 0 30px rgba(255, 255, 240, 0.3),
+    inset 0 0 1px rgba(0, 0, 0, 0.06),
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.18),
+    0 8px 16px rgba(0, 0, 0, 0.15),
+    0 16px 32px rgba(0, 0, 0, 0.12),
+    0 24px 48px rgba(0, 0, 0, 0.1),
+    0 32px 64px rgba(0, 0, 0, 0.08);
+}
+
+.polaroid-frame--zoomed.polaroid-dark {
+  background: linear-gradient(165deg, #f5f0e8 0%, #efe9e0 50%, #e8e2d8 100%);
+}
+
+/* ── Glare sweep ───────────────────────────────────── */
+.polaroid-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.polaroid-glare::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -50%;
+  width: 50%;
+  height: 140%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 30%,
+    rgba(255, 255, 255, 0.18) 50%,
+    rgba(255, 255, 255, 0.06) 70%,
+    transparent 100%
+  );
+  transform: translateX(-100%) skewX(-15deg);
+  animation: glareSweep 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.12s forwards;
+}
+
+@keyframes glareSweep {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(350%) skewX(-15deg);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .polaroid-glare::after {
+    animation: none;
+  }
+}
+
+/* Film grain overlay for design 3 */
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
 }
