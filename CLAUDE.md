@@ -30,7 +30,7 @@ This is a **Next.js 16 photo gallery** (App Router, React 19, TypeScript) presen
 - **`app/components/motion.tsx`** — Reusable scroll-triggered animation primitives (FadeInUp, FadeIn, SlideIn, ScaleIn, DrawLine, TextReveal, ScrollProgress, StaggerContainer/StaggerItem). Used across most gallery pages.
 - **`app/components/PolaroidImage.tsx`** — Interactive polaroid card with click-to-zoom modal using FLIP animation, portal rendering, escape/click-outside dismissal. Supports light/dark themes.
 - **`app/components/ScatteredPile.tsx`** — Scattered photo layout using R2 quasirandom sequence for even distribution and splitmix32 PRNG for rotation/scatter. Powers the `/` page.
-- **`app/components/PileControls.tsx`** — Interactive slider panel for tuning ScatteredPile parameters (canvas size, tightness, scatter, rotation, photo size).
+- **`app/components/PileControls.tsx`** — Interactive slider panel for tuning ScatteredPile parameters (canvas size, tightness, scatter, rotation, photo size). Hidden by default; toggle by typing "mia" on the keyboard.
 
 ### Utilities
 
@@ -41,7 +41,7 @@ This is a **Next.js 16 photo gallery** (App Router, React 19, TypeScript) presen
 
 | Route | Name | Key Pattern |
 |-------|------|-------------|
-| `/` | Scattered Prints | ScatteredPile (light theme) with interactive controls |
+| `/` | Scattered Prints | ScatteredPile (light theme) with hidden controls (type "mia" to toggle) |
 | `/alt` | Analog Memory | Polaroid grid with film grain overlay |
 
 ### Path Alias
