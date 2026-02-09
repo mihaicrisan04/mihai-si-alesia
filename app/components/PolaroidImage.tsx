@@ -128,12 +128,13 @@ export function PolaroidImage({
 
     const hoveredRect = el.getBoundingClientRect();
 
-    // Reverse CSS hover transforms: scale(1.05) translate(0, -6px)
-    // When dragging, hover is suppressed so element is at natural size
-    const hoverScale = isDragActive ? 1 : 1.05;
+    // Reverse CSS hover transforms: scale(1.03) translate(0, -6px)
+    // When dragging, hover is suppressed via --dragging class
+    const hoverScale = isDragActive ? 1 : 1.03;
+    const hoverTranslateY = isDragActive ? 0 : -6;
     const natW = hoveredRect.width / hoverScale;
     const natCX = hoveredRect.left + hoveredRect.width / 2;
-    const natCY = hoveredRect.top + hoveredRect.height / 2;
+    const natCY = hoveredRect.top + hoveredRect.height / 2 - hoverTranslateY;
 
     // Proportional zoom: padding scales with size so transform: scale() is pixel-perfect
     const thumbImgW = natW - thumbPad.lr * 2;

@@ -14,14 +14,17 @@ export function useScrollLock(locked: boolean) {
     if (!locked) return;
 
     const html = document.documentElement;
+    const body = document.body;
 
     // Measure scrollbar width before hiding overflow
     const scrollbarWidth = window.innerWidth - html.clientWidth;
 
     const prevOverflow = html.style.overflow;
     const prevPaddingRight = html.style.paddingRight;
+    const prevBodyOverflow = body.style.overflow;
 
     html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
 
     if (scrollbarWidth > 0) {
       html.style.paddingRight = `${scrollbarWidth}px`;
@@ -30,6 +33,7 @@ export function useScrollLock(locked: boolean) {
     return () => {
       html.style.overflow = prevOverflow;
       html.style.paddingRight = prevPaddingRight;
+      body.style.overflow = prevBodyOverflow;
     };
   }, [locked]);
 }
