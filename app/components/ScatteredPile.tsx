@@ -208,9 +208,9 @@ export function ScatteredPile({ photos, theme }: ScatteredPileProps) {
       ) : (
         <div key={params.stagger} className="relative w-full" style={{ height: `${pileHeightVh}vh` }}>
           <style>{`
-            .pile-photo { width: ${mobileWidth}%; }
-            @media (min-width: 640px) { .pile-photo { width: ${tabletWidth}%; } }
-            @media (min-width: 1024px) { .pile-photo { width: ${desktopWidth}%; } }
+            .pile-photo { width: ${mobileWidth}%; --pile-photo-w: ${mobileWidth}%; }
+            @media (min-width: 640px) { .pile-photo { width: ${tabletWidth}%; --pile-photo-w: ${tabletWidth}%; } }
+            @media (min-width: 1024px) { .pile-photo { width: ${desktopWidth}%; --pile-photo-w: ${desktopWidth}%; } }
           `}</style>
           {photos.map((photo, i) => {
             const l = layouts[i];
@@ -220,7 +220,7 @@ export function ScatteredPile({ photos, theme }: ScatteredPileProps) {
                 className="absolute animate-fade-in-up pile-photo"
                 style={{
                   top: `${l.top}%`,
-                  left: `${l.left}%`,
+                  left: `clamp(0%, ${l.left}%, calc(100% - var(--pile-photo-w)))`,
                   zIndex: dragZIndices[i] ?? l.z,
                   animationDelay: `${i * params.stagger}ms`,
                   pointerEvents: "none",
@@ -249,9 +249,9 @@ export function ScatteredPile({ photos, theme }: ScatteredPileProps) {
       <footer className="pt-16 pb-24 text-center relative z-30">
         <p className="text-3xl md:text-4xl" style={{ color: t.muted }}>
           i{" "}
-            <span className="inline-block mx-1 relative group" style={{ verticalAlign: '-0.1em', width: 32, height: 32 }}>
-              <Heart className="absolute inset-0 transition-opacity duration-150 group-hover:opacity-0" style={{ color: t.heart }} size={32} />
-              <Heart className="absolute inset-0 transition-opacity duration-150 opacity-0 group-hover:opacity-100" style={{ color: t.heart, fill: t.heart }} size={32} />
+            <span className="inline-block mx-1 relative group" style={{ verticalAlign: '-0.1em', width: 28, height: 28 }}>
+              <Heart className="absolute inset-0 transition-opacity duration-150 group-hover:opacity-0" style={{ color: t.heart }} size={28} />
+              <Heart className="absolute inset-0 transition-opacity duration-150 opacity-0 group-hover:opacity-100" style={{ color: t.heart, fill: t.heart }} size={28} />
             </span>
             {" "}u
         </p>
